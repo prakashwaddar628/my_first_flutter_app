@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileSearch extends StatelessWidget {
   const ProfileSearch({super.key});
+
+  List<String> getUrl() {
+    const contact = 'mailto:prakash@example.com';
+    const github = 'https://github.com/prakashlwaddar';
+    return [contact, github];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +68,16 @@ class ProfileSearch extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Handle button press
+                        // when button is pressed open the url in the browser using the url_launcher package
+                        launchUrl(Uri.parse(getUrl()[0]));
                       },
                       child: const Text('Contact'),
                     ),
 
                     ElevatedButton(
                       onPressed: () {
-                        // Handle button press
+                        // when button is pressed open the url in the browser using the url_launcher package
+                        launchUrl(Uri.parse(getUrl()[1]));
                       },
                       child: const Text('GitHub'),
                     ),

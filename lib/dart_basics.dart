@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 class Student {
   String name;
   int age;
@@ -13,23 +15,23 @@ class Student {
 }
 
 void printStudentDetails(Student student) {
-  print('----- Student -----');
-  print('Name: ${student.name}');
-  print('Age: ${student.age}');
-  print('Course: ${student.course}');
-  print('Skills:');
+  developer.log('----- Student -----');
+  developer.log('Name: ${student.name}');
+  developer.log('Age: ${student.age}');
+  developer.log('Course: ${student.course}');
+  developer.log('Skills:');
 
   for (var skill in student.skills) {
-    print('- $skill');
+    developer.log('- $skill');
   }
 
   if (student.age >= 18) {
-    print('Status: Adult');
+    developer.log('Status: Adult');
   } else {
-    print('Status: Minor');
+    developer.log('Status: Minor');
   }
 
-  print('');
+  developer.log('');
 }
 
 void main() {

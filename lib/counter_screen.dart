@@ -25,6 +25,12 @@ class _CounterScreenState extends State<CounterScreen> {
 
   void increaseCounter() {
     setState(() {
+      counter += 1;
+    });
+  }
+  
+  void increaseFive() {
+    setState(() {
       counter += 5;
     });
   }
@@ -104,7 +110,14 @@ class _CounterScreenState extends State<CounterScreen> {
 
                 ElevatedButton(
                   onPressed: increaseCounter,
-                  child: const Text('Increase'),
+                  child: const Text('+1'),
+                ),
+
+                const SizedBox(width: 20),
+
+                ElevatedButton(
+                  onPressed: increaseFive,
+                  child: const Text('+5'),
                 ),
               ],
             ),

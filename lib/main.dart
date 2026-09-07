@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'counter_screen.dart';
-import 'profile.dart';
 
 void main() {
   runApp(const MyApp());
