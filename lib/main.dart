@@ -12,9 +12,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: const Text('My Flutter App')),
+        appBar: AppBar(title: const Text('My Flutter')),
         body: const Center(
-          child: Text('Hello, World!', style: TextStyle(fontSize: 24)),
+          child: Text('Welcome Prakash', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Action when button is pressed
+            print('Floating Action Button Pressed');
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );
