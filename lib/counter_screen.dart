@@ -91,12 +91,20 @@ class _CounterScreenState extends State<CounterScreen> {
 
             const SizedBox(height: 30),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 20,
+              runSpacing: 12,
               children: [
-                ElevatedButton(
-                  onPressed: decreaseCounter,
-                  child: const Text('Decrease'),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('$counter decreased'),
+                    ElevatedButton(
+                      onPressed: decreaseCounter,
+                      child: const Text('Decrease'),
+                    ),
+                  ],
                 ),
 
                 const SizedBox(width: 20),
