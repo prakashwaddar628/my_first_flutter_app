@@ -54,3 +54,52 @@ MaterialApp
                               ├── SizedBox
                               └── ElevatedButton
 ```
+
+Classes — VERY important
+
+Flutter is heavily based on classes and objects.
+
+Create:
+```
+class User {
+  String name;
+  String role;
+  int age;
+
+  User({
+    required this.name,
+    required this.role,
+    required this.age,
+  });
+}
+
+Now create an object:
+
+void main() {
+  User user = User(
+    name: 'Prakash',
+    role: 'AI Developer',
+    age: 25,
+  );
+
+  print(user.name);
+  print(user.role);
+  print(user.age);
+}
+```
+Think:
+```
+             User class
+                 │
+       ┌─────────┼─────────┐
+       ↓         ↓         ↓
+     name       role      age
+       │         │         │
+   Prakash   AI Developer  25
+```
+
+And this should look familiar:
+
+class MyApp extends StatelessWidget
+
+Your Flutter widgets are classes too.
