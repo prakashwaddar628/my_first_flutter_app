@@ -18,3 +18,38 @@ Flutter Learning App
 ├── API Screen
 │
 └── Local Storage
+
+### Understand the widget tree
+
+```
+MaterialApp
+│
+└── ProfileScreen
+     │
+     └── Scaffold
+          │
+          ├── AppBar
+          │    └── Text
+          │
+          └── Center
+               │
+               └── Card
+                    │
+                    └── Padding
+                         │
+                         └── Column
+                              │
+                              ├── CircleAvatar
+                              ├── SizedBox
+                              ├── Text
+                              ├── SizedBox
+                              ├── Text
+                              ├── SizedBox
+                              ├── Row
+                              │    ├── Icon
+                              │    ├── SizedBox
+                              │    └── Text
+                              │
+                              ├── SizedBox
+                              └── ElevatedButton
+```
