@@ -6,7 +6,7 @@ class ProfileSearch extends StatelessWidget {
 
   List<String> getUrl() {
     const contact = 'mailto:prakash@example.com';
-    const github = 'https://github.com/prakashlwaddar';
+    const github = 'https://github.com/prakashwaddar628';
     return [contact, github];
   }
 
