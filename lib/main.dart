@@ -22,8 +22,7 @@ class ProfileSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile Search'),
-      ),
+      appBar: AppBar(title: const Text('Profile Search')),
       body: Center(
         child: Card(
           child: Padding(
@@ -31,33 +30,24 @@ class ProfileSearch extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               // this all comes under the column widget which is used to arrange the widgets vertically
-              children : [
+              children: [
                 const CircleAvatar(
                   radius: 50,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                  ),
+                  child: Icon(Icons.person, size: 50),
                 ),
 
                 const SizedBox(height: 20),
 
                 const Text(
-                  'Prakash',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  'Prakash L Waddar',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 10),
 
                 const Text(
-                  'Software Engineer',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey,
-                  ),
+                  'AI & Data Science Developer',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
 
                 const SizedBox(height: 20),
@@ -67,25 +57,44 @@ class ProfileSearch extends StatelessWidget {
                   children: [
                     const Icon(Icons.email, color: Colors.blue),
                     const SizedBox(width: 10),
-                    const Text(
-                      'prakash@example.com'
-                    )
-                  ]
+                    const Text('prakash@example.com'),
+                  ],
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.phone, color: Colors.blue),
+                    const SizedBox(width: 10),
+                    const Text('+91 9740637206'),
+                  ],
                 ),
 
                 const SizedBox(height: 20),
 
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle button press
-                  },
-                  child: const Text('Contact'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle button press
+                      },
+                      child: const Text('Contact'),
+                    ),
+
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle button press
+                      },
+                      child: const Text('GitHub'),
+                    ),
+                  ],
                 ),
-              ]
+              ],
             ),
           ),
         ),
-        )
+      ),
     );
   }
 }
