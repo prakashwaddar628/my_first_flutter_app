@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_app/profile_details.dart';
 
 import 'models/user.dart';
 import 'widgets/user_card.dart';
+import 'profile_details.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});
@@ -105,8 +105,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                   if (_formKey.currentState!.validate()) {
                     setState(() {
                       final user = User(
-                        name: nameController.text.trim(),
-                        email: emailController.text.trim(),
+                        name: nameController.text.trim().toUpperCase(),
+                        email: emailController.text.trim().toLowerCase(),
                         course: courseController.text.trim(),
                       );
 

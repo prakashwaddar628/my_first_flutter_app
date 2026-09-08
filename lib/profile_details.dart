@@ -19,6 +19,13 @@ class ProfileDetailsScreen extends StatelessWidget {
             Text('Name: ${user.name}'),
             Text('Email: ${user.email}'),
             Text('Course: ${user.course}'),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context, 'Profile Viewed!');
+              },
+              child: const Text('Go Back'),
+            )
           ],
         ),
       ),
