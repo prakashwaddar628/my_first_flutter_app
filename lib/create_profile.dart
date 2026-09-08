@@ -8,7 +8,6 @@ class CreateProfileScreen extends StatefulWidget {
 }
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
-
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final courseController = TextEditingController();
@@ -31,42 +30,42 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
     if (name.isEmpty || email.isEmpty || course.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields'),
-      )
+        const SnackBar(content: Text('Please fill in all fields')),
       );
     }
 
-    void validateEmail(String email) {
-    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a valid email address')),
-      );
-    }
+    bool validateEmail(String email) {
+      if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+          .hasMatch(email)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please enter a valid email address')),
+        );
+        return false;
+      }
+      return true;
     }
 
     if (name.isNotEmpty && email.isNotEmpty && course.isNotEmpty) {
-      validateEmail(email);
-      setState(() {
-        users.add('Name: $name, Email: $email, Course: $course');
-      });
+      if (validateEmail(email)) {
+        setState(() {
+          users.add('Name: $name, Email: $email, Course: $course');
 
-      nameController.clear();
-      emailController.clear();
-      courseController.clear();
+          nameController.clear();
+          emailController.clear();
+          courseController.clear();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile created successfully')),
-      );
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Profile created successfully')),
+          );
+        });
+      }
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Profile'),
-      ),
+      appBar: AppBar(title: const Text('Create Profile')),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -76,7 +75,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               decoration: const InputDecoration(
                 labelText: 'Name',
                 hintText: 'eg. John Doe',
-              )
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -86,7 +85,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               decoration: const InputDecoration(
                 labelText: 'Email',
                 hintText: 'eg.  example@example.com',
-              )
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -96,7 +95,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               decoration: const InputDecoration(
                 labelText: 'Course',
                 hintText: 'eg. git, flutter, python',
-              )
+              ),
             ),
 
             const SizedBox(height: 20),
@@ -106,10 +105,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 validateAndSubmit();
               },
               child: const Text('Create Profile'),
-            )
+            ),
           ],
-        )
-      )  
+        ),
+      ),
     );
   }
 }
