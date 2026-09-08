@@ -15,6 +15,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   List<String> users = [];
 
+  // Dispose the controllers when the widget is disposed
+  @override
   void dispose() {
     nameController.dispose();
     emailController.dispose();
