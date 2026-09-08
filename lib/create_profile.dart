@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'models/user.dart';
+import 'widgets/user_card.dart';
+
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});
 
@@ -14,7 +17,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  List<String> users = [];
+  // List<String> users = [];
+  List<User> users = [];
+  int? editingIndex;
 
   // Dispose the controllers when the widget is disposed
   @override
@@ -98,11 +103,18 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     setState(() {
-                      users.add(
-                        'Name: ${nameController.text}\n'
-                        'Email: ${emailController.text}\n'
-                        'Course: ${courseController.text}\n',
+                      final user = User(
+                        name: nameController.text.trim(),
+                        email: emailController.text.trim(),
+                        course: courseController.text.trim(),
                       );
+
+                      if (editingIndex == null) {
+                        users.add(user);
+                      } else {
+                        users[editingIndex!] = user;
+                        editingIndex = null;
+                      }
                     });
 
                     nameController.clear();
@@ -110,29 +122,32 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     courseController.clear();
                   }
                 },
-                child: const Text('Create Profile'),
+                child: Text(editingIndex == null ? 'Create Profile' : 'Update Profile'),
               ),
 
               Expanded(
                 child: ListView.builder(
                   itemCount: users.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        title: Text(users[index]),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              users.removeAt(index);
-                            });
-                          },
-                        ),
-                      ),
+                    return UserCard(
+                      user: users[index],
+                      onEdit: () {
+                        setState(() {
+                          editingIndex = index;
+                          nameController.text = users[index].name;
+                          emailController.text = users[index].email;
+                          courseController.text = users[index].course;
+                        });
+                      },
+                      onDelete: () {
+                        setState(() {
+                          users.removeAt(index);
+                        });
+                      },
                     );
                   },
-                )
-              )
+                ),
+              ),
             ],
           ),
         ),
