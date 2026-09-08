@@ -13,6 +13,52 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final emailController = TextEditingController();
   final courseController = TextEditingController();
 
+  List<String> users = [];
+
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    courseController.dispose();
+    super.dispose();
+  }
+
+  void validateAndSubmit() {
+    final name = nameController.text.trim();
+    final email = emailController.text.trim();
+    final course = courseController.text.trim();
+
+    if (name.isEmpty || email.isEmpty || course.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields'),
+      )
+      );
+    }
+
+    void validateEmail(String email) {
+    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid email address')),
+      );
+    }
+    }
+
+    if (name.isNotEmpty && email.isNotEmpty && course.isNotEmpty) {
+      validateEmail(email);
+      setState(() {
+        users.add('Name: $name, Email: $email, Course: $course');
+      });
+
+      nameController.clear();
+      emailController.clear();
+      courseController.clear();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profile created successfully')),
+      );
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,9 +101,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
             ElevatedButton(
               onPressed: () {
-                print(nameController.text);
-                print(emailController.text);
-                print(courseController.text);
+                validateAndSubmit();
               },
               child: const Text('Create Profile'),
             )
