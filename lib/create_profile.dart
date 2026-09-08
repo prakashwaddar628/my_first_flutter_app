@@ -12,6 +12,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final emailController = TextEditingController();
   final courseController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   List<String> users = [];
 
   // Dispose the controllers when the widget is disposed
@@ -23,90 +25,116 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     super.dispose();
   }
 
-  void validateAndSubmit() {
-    final name = nameController.text.trim();
-    final email = emailController.text.trim();
-    final course = courseController.text.trim();
-
-    if (name.isEmpty || email.isEmpty || course.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields')),
-      );
-    }
-
-    bool validateEmail(String email) {
-      if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-          .hasMatch(email)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please enter a valid email address')),
-        );
-        return false;
-      }
-      return true;
-    }
-
-    if (name.isNotEmpty && email.isNotEmpty && course.isNotEmpty) {
-      if (validateEmail(email)) {
-        setState(() {
-          users.add('Name: $name, Email: $email, Course: $course');
-
-          nameController.clear();
-          emailController.clear();
-          courseController.clear();
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Profile created successfully')),
-          );
-        });
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Create Profile')),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'eg. John Doe',
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  hintText: 'eg. John Doe',
+                ),
+                validator: (value) {
+                  if (value == null ||
+                      value.trim().isEmpty ||
+                      value.trim().length < 4) {
+                    return 'Please enter your name';
+                  }
+
+                  return null;
+                },
               ),
-            ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                hintText: 'eg.  example@example.com',
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'eg.  example@example.com',
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter your email';
+                  }
+
+                  final email = value.trim();
+
+                  if (!RegExp(
+                    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                  ).hasMatch(email)) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
               ),
-            ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            TextField(
-              controller: courseController,
-              decoration: const InputDecoration(
-                labelText: 'Course',
-                hintText: 'eg. git, flutter, python',
+              TextFormField(
+                controller: courseController,
+                decoration: const InputDecoration(
+                  labelText: 'Course',
+                  hintText: 'eg. git, flutter, python',
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter the course';
+                  }
+                  return null;
+                },
               ),
-            ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            ElevatedButton(
-              onPressed: () {
-                validateAndSubmit();
-              },
-              child: const Text('Create Profile'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      users.add(
+                        'Name: ${nameController.text}\n'
+                        'Email: ${emailController.text}\n'
+                        'Course: ${courseController.text}\n',
+                      );
+                    });
+
+                    nameController.clear();
+                    emailController.clear();
+                    courseController.clear();
+                  }
+                },
+                child: const Text('Create Profile'),
+              ),
+
+              Expanded(
+                child: ListView.builder(
+                  itemCount: users.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        title: Text(users[index]),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              users.removeAt(index);
+                            });
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                )
+              )
+            ],
+          ),
         ),
       ),
     );
