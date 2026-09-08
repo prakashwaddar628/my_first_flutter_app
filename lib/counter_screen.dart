@@ -48,10 +48,20 @@ class _CounterScreenState extends State<CounterScreen> {
 
   void decreaseCounter() {
     setState(() {
+      if (counter >= 1) {
+        counter -= 1;
+      } else {
+        counter = 0; // Prevent counter from going below 0
+      }
+    });
+  }
+
+  void decreaseFive() {
+    setState(() {
       if (counter >= 5) {
         counter -= 5;
       } else {
-        counter = 0; // Prevent counter from going below 0
+        counter = 0;
       }
     });
   }
@@ -118,7 +128,14 @@ class _CounterScreenState extends State<CounterScreen> {
               children: [
                 ElevatedButton(
                   onPressed: decreaseCounter,
-                  child: const Text('Decrease'),
+                  child: const Text('-1'),
+                ),
+
+                const SizedBox(width: 20),
+
+                ElevatedButton(
+                  onPressed: decreaseFive,
+                  child: const Text('-5'),
                 ),
 
                 const SizedBox(width: 20),
