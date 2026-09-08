@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'profile.dart';
 
 class MyApp extends StatelessWidget {
@@ -23,12 +24,22 @@ class CounterScreen extends StatefulWidget {
 class _CounterScreenState extends State<CounterScreen> {
   int counter = 0;
 
+  String get counterMessage {
+    if (counter == 0) {
+      return 'Counter is at zero';
+    } else if (counter < 0) {
+      return 'Counter is negative';
+    } else {
+      return 'Counter is positive';
+    }
+  }
+
   void increaseCounter() {
     setState(() {
       counter += 1;
     });
   }
-  
+
   void increaseFive() {
     setState(() {
       counter += 5;
@@ -81,12 +92,21 @@ class _CounterScreenState extends State<CounterScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '$counter',
-              style: const TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-              ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '$counter',
+                  style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                ),
+
+                const SizedBox(height: 10),
+
+                Text(
+                  counterMessage,
+                  style: const TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                ),
+              ],
             ),
 
             const SizedBox(height: 30),
@@ -96,15 +116,9 @@ class _CounterScreenState extends State<CounterScreen> {
               spacing: 20,
               runSpacing: 12,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('$counter decreased'),
-                    ElevatedButton(
-                      onPressed: decreaseCounter,
-                      child: const Text('Decrease'),
-                    ),
-                  ],
+                ElevatedButton(
+                  onPressed: decreaseCounter,
+                  child: const Text('Decrease'),
                 ),
 
                 const SizedBox(width: 20),
