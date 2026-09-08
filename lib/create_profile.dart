@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_flutter_app/profile_details.dart';
 
 import 'models/user.dart';
 import 'widgets/user_card.dart';
@@ -132,6 +133,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                   itemCount: users.length,
                   itemBuilder: (context, index) {
                     return UserCard(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileDetailsScreen(user: users[index]),
+                          ),
+                        );
+                      },
                       user: users[index],
                       onEdit: () {
                         setState(() {
