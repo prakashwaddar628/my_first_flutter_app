@@ -107,14 +107,20 @@ class _CounterScreenState extends State<CounterScreen> {
               children: [
                 Text(
                   '$counter',
-                  style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
 
                 const SizedBox(height: 10),
 
                 Text(
                   counterMessage,
-                  style: const TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ],
             ),

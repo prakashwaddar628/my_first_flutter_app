@@ -122,7 +122,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     courseController.clear();
                   }
                 },
-                child: Text(editingIndex == null ? 'Create Profile' : 'Update Profile'),
+                child: Text(
+                  editingIndex == null ? 'Create Profile' : 'Update Profile',
+                ),
               ),
 
               Expanded(
