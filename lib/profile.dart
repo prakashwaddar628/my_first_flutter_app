@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'create_profile.dart';
+
 class ProfileSearch extends StatelessWidget {
   const ProfileSearch({super.key});
 
@@ -81,6 +83,15 @@ class ProfileSearch extends StatelessWidget {
                       },
                       child: const Text('GitHub'),
                     ),
+
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context, 
+                        MaterialPageRoute(builder: (context) => const CreateProfileScreen()),
+                        );
+                      },
+                      child: const Text('Create Profile'),
+                    )
                   ],
                 ),
               ],
